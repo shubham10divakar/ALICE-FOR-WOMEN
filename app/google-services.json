@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1057593397407",
+    "firebase_url": "https://alice-for-women.firebaseio.com",
+    "project_id": "alice-for-women",
+    "storage_bucket": "alice-for-women.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1057593397407:android:e1499255301075ce",
+        "android_client_info": {
+          "package_name": "com.example.subhamdivakar.alice"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1057593397407-4noa5k1u23nk3dghj50ihfv5rk126btq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.subhamdivakar.alice",
+            "certificate_hash": "8e840a0005ddc29ad911c1712ab2f6de6d4c8dae"
+          }
+        },
+        {
+          "client_id": "1057593397407-agel0pkqjnoqoae0no5e31jnbgj32pe4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxe5_EMjS9B8p7tKbeNrPp1JMSU-nmezs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1057593397407-agel0pkqjnoqoae0no5e31jnbgj32pe4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

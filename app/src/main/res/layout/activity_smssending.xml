@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.subhamdivakar.alice.SMSsending"
+    android:background="@drawable/images"
+    >
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout5"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+
+        <EditText
+            android:id="@+id/message_edit_text"
+            android:layout_width="368dp"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="141dp"
+            android:hint="Enter your message here that will be sent as alert when you will be in need of help"
+            android:maxLines="5"
+            android:textColor="@color/colorPrimary"
+            android:padding="10dp"
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="151dp" />
+
+        <Button
+            android:id="@+id/send_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/message_edit_text"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="71dp"
+            android:text="Send SMS"
+            tools:layout_editor_absoluteX="146dp"
+            tools:layout_editor_absoluteY="382dp" />
+
+        <TextView
+            android:id="@+id/delivery_status_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/message_edit_text"
+            android:layout_below="@+id/send_button"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginEnd="87dp"
+            android:layout_marginTop="28dp"
+            android:text="Message not delivered yet."
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/colorPrimaryDark"
+            tools:layout_editor_absoluteX="109dp"
+            tools:layout_editor_absoluteY="342dp" />
+
+        <TextView
+            android:id="@+id/message_status_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/delivery_status_text_view"
+            android:layout_below="@+id/delivery_status_text_view"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="13dp"
+            android:text="Message not sent yet."
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/colorPrimaryDark" />
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

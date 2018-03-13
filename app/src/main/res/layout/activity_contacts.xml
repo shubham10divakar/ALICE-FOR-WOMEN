@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.subhamdivakar.alice.Contacts"
+    android:background="@color/colorAccent">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/add_contact_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="69dp"
+            android:layout_marginTop="141dp"
+            android:src="@drawable/ic_phone_black_24dp"
+            tools:layout_editor_absoluteX="44dp"
+            tools:layout_editor_absoluteY="196dp" />
+
+        <EditText
+            android:id="@+id/phone_number_edit_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/add_contact_image_view"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="23dp"
+            android:layout_toEndOf="@+id/add_contact_image_view"
+            android:hint="Enter phone number here"
+            android:inputType="phone"
+            android:padding="10dp"
+            tools:layout_editor_absoluteX="45dp"
+            tools:layout_editor_absoluteY="120dp" />
+
+        <ImageView
+            android:id="@+id/add_contact_image_view2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/add_contact_image_view"
+            android:layout_below="@+id/phone_number_edit_text"
+            android:layout_marginTop="25dp"
+            android:src="@drawable/ic_phone_black_24dp"
+            tools:layout_editor_absoluteX="44dp"
+            tools:layout_editor_absoluteY="196dp" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/add_contact_image_view2"
+            android:layout_alignEnd="@+id/phone_number_edit_text"
+            android:ems="10"
+            android:inputType="phone"
+            android:hint="Enter phone number here"/>
+
+        <ImageView
+            android:id="@+id/add_contact_image_view3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/add_contact_image_view2"
+            android:layout_below="@+id/editText"
+            android:layout_marginTop="17dp"
+            android:src="@drawable/ic_phone_black_24dp"
+            tools:layout_editor_absoluteX="44dp"
+            tools:layout_editor_absoluteY="196dp" />
+
+        <ImageView
+            android:id="@+id/add_contact_image_view4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/editText4"
+            android:layout_alignStart="@+id/add_contact_image_view3"
+            android:src="@drawable/ic_phone_black_24dp"
+            tools:layout_editor_absoluteX="44dp"
+            tools:layout_editor_absoluteY="196dp"
+            />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/editText"
+            android:layout_below="@+id/editText"
+            android:ems="10"
+            android:inputType="phone"
+            android:hint="Enter phone number here"/>
+
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/editText2"
+            android:layout_below="@+id/editText2"
+            android:ems="10"
+            android:inputType="phone"
+            android:hint="Enter phone number here"/>
+
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/editText3"
+            android:layout_below="@+id/editText3"
+            android:layout_marginTop="13dp"
+            android:ems="10"
+            android:inputType="phone"
+            android:hint="Enter phone number here"/>
+
+        <ImageView
+            android:id="@+id/add_contact_image_view5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/add_contact_image_view4"
+            android:layout_alignTop="@+id/editText4"
+            android:src="@drawable/ic_phone_black_24dp"
+            tools:layout_editor_absoluteX="44dp"
+            tools:layout_editor_absoluteY="196dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editText4"
+            android:layout_centerHorizontal="true"
+            android:onClick="begin"
+            android:text="Store contacts" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/phone_number_edit_text"
+            android:layout_marginBottom="27dp"
+            android:layout_toEndOf="@+id/add_contact_image_view"
+            android:text="CONTACTS"
+            android:textSize="40dp"
+            android:textStyle="bold"/>
+
+
+    </RelativeLayout>
+</android.support.constraint.ConstraintLayout>

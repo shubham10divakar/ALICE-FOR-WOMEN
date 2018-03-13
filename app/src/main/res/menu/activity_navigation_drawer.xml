@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/motion"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Motion Detector" />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Gallery" />
+        <item
+            android:id="@+id/gps"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="GPS Tracking" />
+        <item
+            android:id="@+id/sms"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="SMS alert" />
+        <item
+            android:id="@+id/contact"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Select Contacts" />
+        <item
+            android:id="@+id/police"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Contact Police" />
+        <item
+            android:id="@+id/theft"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Anti-Theft" />
+        <item
+            android:id="@+id/health"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="PEDOMETER" />
+        <item
+            android:id="@+id/immergency"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Immergency" />
+        <item
+            android:id="@+id/erase"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Add new Contacts" />
+        <item
+            android:id="@+id/note"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Alert everyone"
+            />
+        <item
+        android:id="@+id/display"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="Display Saved Contacts"/>
+        <item
+            android:id="@+id/email"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Send Email"/>
+        <item
+            android:id="@+id/record"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Recorder"/>
+
+
+
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+
+</menu>
