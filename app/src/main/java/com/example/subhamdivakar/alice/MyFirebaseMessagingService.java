@@ -3,6 +3,7 @@ package com.example.subhamdivakar.alice;
 /**
  * Created by Subham Divakar on 3/8/2018.
  */
+import android.app.Notification;
 import android.content.Intent;
 import android.util.Log;
 
@@ -15,6 +16,7 @@ import org.json.JSONObject;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
+    private NotificationUtils mNotificationUtils;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -54,10 +56,24 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if(imageUrl.equals("null")){
                 //displaying small notification
                 mNotificationManager.showSmallNotification(title, message, intent);
+
+
+                Notification.Builder nb = mNotificationUtils.
+                        getAndroidChannelNotification(title, "By " + "Good");
+
+                mNotificationUtils.getManager().notify(101, nb.build());
+
+
             }else{
                 //if there is an image
                 //displaying a big notification
                 mNotificationManager.showBigNotification(title, message, imageUrl, intent);
+
+                Notification.Builder nb = mNotificationUtils.
+                        getAndroidChannelNotification(title, "By " + "Good");
+
+                mNotificationUtils.getManager().notify(101, nb.build());
+
             }
         } catch (JSONException e) {
             Log.e(TAG, "Json Exception: " + e.getMessage());

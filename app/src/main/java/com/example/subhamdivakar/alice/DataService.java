@@ -64,7 +64,8 @@ public class DataService extends Service
             gps = new GPSTracker(DataService.this);
 
             // check if GPS enabled
-            if(gps.canGetLocation()){
+            if(gps.canGetLocation())
+            {
 
                  latitude = gps.getLatitude();
                  longitude = gps.getLongitude();

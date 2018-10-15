@@ -19,6 +19,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +35,11 @@ import com.example.subhamdivakar.alice.UTILS.SqDB;
 import java.util.List;
 
 import static android.Manifest.permission.SEND_SMS;
+import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p1;
+import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p2;
+import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p3;
+import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p4;
+import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p5;
 
 public class Contacts extends AppCompatActivity {
 
@@ -58,9 +64,33 @@ public class Contacts extends AppCompatActivity {
         setContentView(R.layout.activity_contacts);
         SqDB database = new SqDB(this);
         ContactSaving obj = database.getContact();
+        number1 = (TextView) findViewById(R.id.phone_number_edit_text);
+        number2 = (TextView) findViewById(R.id.editText);
+        number3 = (TextView) findViewById(R.id.editText2);
+        number4 = (TextView) findViewById(R.id.editText3);
+        number5 = (TextView) findViewById(R.id.editText4);
+        pickContact = (ImageView) findViewById(R.id.add_contact_image_view);
+        pickContact2 = (ImageView) findViewById(R.id.add_contact_image_view2);
+        pickContact3 = (ImageView) findViewById(R.id.add_contact_image_view3);
+        pickContact4 = (ImageView) findViewById(R.id.add_contact_image_view4);
+        pickContact5 = (ImageView) findViewById(R.id.add_contact_image_view5);
         if (obj != null) {
 
             Toast.makeText(Contacts.this, "CONTACTS already stored", Toast.LENGTH_LONG).show();
+            Cursor res = database.getAllData();
+            if (res.moveToNext()) {
+                String ph1 = String.valueOf(res.getString(res.getColumnIndex(contact_INFO_TABLE_COLUMN_p1)));
+                number1.setText(ph1);
+                String ph2 = String.valueOf(res.getString(res.getColumnIndex(contact_INFO_TABLE_COLUMN_p2)));
+                number2.setText(ph2);
+                String ph3 = String.valueOf(res.getString(res.getColumnIndex(contact_INFO_TABLE_COLUMN_p3)));
+                number3.setText(ph3);
+                String ph4 = String.valueOf(res.getString(res.getColumnIndex(contact_INFO_TABLE_COLUMN_p4)));
+                number4.setText(ph4);
+                String ph5 = String.valueOf(res.getString(res.getColumnIndex(contact_INFO_TABLE_COLUMN_p5)));
+                number5.setText(ph5);
+            }
+
         } else {
             number1 = (TextView) findViewById(R.id.phone_number_edit_text);
             number2 = (TextView) findViewById(R.id.editText);
@@ -234,20 +264,27 @@ public class Contacts extends AppCompatActivity {
         p3=(EditText) findViewById(R.id.editText2);
         p4=(EditText) findViewById(R.id.editText3);
         p5=(EditText) findViewById(R.id.editText4);
-
-        boolean result=database.insertNumber(p1.getText().toString(),p2.getText().toString(),p3.getText().toString(),p4.getText().toString(),p5.getText().toString());
-        if(result)
+        if(TextUtils.isEmpty(p1.getText().toString()) || TextUtils.isEmpty(p2.getText().toString())||TextUtils.isEmpty(p3.getText().toString())||TextUtils.isEmpty(p4.getText().toString())||TextUtils.isEmpty(p5.getText().toString()))
         {
-            Toast.makeText(Contacts.this, "Contacts stored in database", Toast.LENGTH_LONG).show();
-
+            Toast.makeText(this, "One or more fields empty", Toast.LENGTH_SHORT).show();
         }
-        else
-        {
-            Toast.makeText(Contacts.this, "Contacts not stored in database", Toast.LENGTH_LONG).show();
+        else {
+            boolean result = database.insertNumber(p1.getText().toString(), p2.getText().toString(), p3.getText().toString(), p4.getText().toString(), p5.getText().toString());
+            if (result) {
+                Toast.makeText(Contacts.this, "Contacts stored in database", Toast.LENGTH_LONG).show();
+                finish();
+
+            } else {
+                Toast.makeText(Contacts.this, "Contacts not stored in database", Toast.LENGTH_LONG).show();
+            }
         }
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }
 
 

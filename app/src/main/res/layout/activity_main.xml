@@ -40,7 +40,7 @@
             android:layout_marginBottom="70dp"
             android:layout_marginStart="33dp"
             android:onClick="startService"
-            android:text="Run in background" />
+            android:text="Shield On" />
 
         <Button
             android:id="@+id/button2"
@@ -51,8 +51,16 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="22dp"
             android:onClick="stopService"
-            android:text="Stop process" />
+            android:text="Shield Off" />
 
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="13dp"
+            android:text="Save Contacts"
+            android:onClick="saveContacts"/>
     </RelativeLayout>
-
 </android.support.constraint.ConstraintLayout>

@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.subhamdivakar.alice.SplashScreen3">
-<RelativeLayout
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/m5">
 
-</RelativeLayout>
+</LinearLayout>
 </android.support.constraint.ConstraintLayout>

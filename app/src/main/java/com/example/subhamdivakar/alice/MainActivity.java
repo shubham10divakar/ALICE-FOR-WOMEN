@@ -1,17 +1,27 @@
 package com.example.subhamdivakar.alice;
 
 import android.Manifest;
+import android.app.ActivityManager;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.AlarmClock;
+import android.provider.Settings;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -19,12 +29,31 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.subhamdivakar.alice.Bean.ContactSaving;
 import com.example.subhamdivakar.alice.UTILS.SqDB;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
+
+import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p1;
+import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p2;
+import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p3;
+import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p4;
+import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p5;
+
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.DexterError;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.PermissionRequestErrorListener;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -52,6 +81,9 @@ public class MainActivity extends AppCompatActivity{
         preferences = getSharedPreferences(PREFS,0);
         editor = preferences.edit();
 
+        requestStoragePermission();
+        requestCameraPermission();
+
         findViewById(R.id.microphoneButton).setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -59,6 +91,26 @@ public class MainActivity extends AppCompatActivity{
                 listen();
             }
         });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            String id = "id_product";
+            // The user-visible name of the channel.
+            CharSequence name = "Product";
+            // The user-visible description of the channel.
+            String description = "Notifications regarding our products";
+            int importance = NotificationManager.IMPORTANCE_MAX;
+            NotificationChannel mChannel = new NotificationChannel(id, name, NotificationManager.IMPORTANCE_HIGH);
+            // Configure the notification channel.
+            mChannel.setDescription(description);
+            mChannel.enableLights(true);
+            // Sets the notification light color for notifications posted to this
+            // channel, if the device supports this feature.
+            mChannel.setLightColor(Color.RED);
+            notificationManager.createNotificationChannel(mChannel);
+        }
+
+
         loadQuestions();
 
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
@@ -198,8 +250,8 @@ public class MainActivity extends AppCompatActivity{
             if(as_name.equals(""))
                 speak("How do you want to call me?");
             else
-                speak("My name is ALICE.");
-            speak("i have been created by subham divakar.");
+                speak("");
+            speak("My name is ALICE ");
         }
 
         if(text.contains("call you")){
@@ -284,12 +336,12 @@ public class MainActivity extends AppCompatActivity{
             }
             startActivity(callIntent);
         }
-        if(text.contains("swipe")||text.contains("hello"))
-        {
-
-            Intent obj=new Intent(this,Main2Activity.class);
-            startActivity(obj);
-        }
+//        if(text.contains("swipe")||text.contains("hello"))
+//        {
+//
+//            Intent obj=new Intent(this,Main2Activity.class);
+//            startActivity(obj);
+//        }
         if(text.contains("step")||text.contains("count"))
         {
 
@@ -307,13 +359,207 @@ public class MainActivity extends AppCompatActivity{
             Intent obj=new Intent(this,SplashScreen3.class);
             startActivity(obj);
         }
+        if(text.contains("introduce")||text.contains("tell about yourself"))
+        {
+            speak("Good morning everyone. I am ALICE and i am a chatbot developed for the safety of women.   I will alert the contacts stored by you to alert them   and the police that you are in danger. I will also alert the users of the application within a radius of 5 kilometres."
+            );
+        }
+        if(text.contains("activate")||text.contains("shield on"))
+        {
+            if(isMyServiceRunning(MyService.class)||isMyServiceRunning(ShakeService.class)||isMyServiceRunning(BackCameraRecorderService.class)) {
+                speak(" Shield are already activated ");
+            }
+            else
+            {
+                speak(" Shields are switched on ");
+                startService(new Intent(getBaseContext(), MyService.class));
+                startService(new Intent(getBaseContext(), ShakeService.class));
+            }
+        }
+        if(text.contains("stop"))
+        {
+            if(isMyServiceRunning(MyService.class)||isMyServiceRunning(ShakeService.class)||isMyServiceRunning(BackCameraRecorderService.class)) {
+                speak("Shield are switched off");
+                stopService(new Intent(getBaseContext(), MyService.class));
+                stopService(new Intent(getBaseContext(), ShakeService.class));
+                stopService(new Intent(getBaseContext(), Timer.class));
+            }
+            else
+            {
+                speak(" Shields are not activated. Switch them on first");
+            }
+        }
     }
     public void startService(View view) {
-        startService(new Intent(getBaseContext(), MyService.class));
-        startService(new Intent(getBaseContext(), ShakeService.class));
+
+        if(isMyServiceRunning(MyService.class)||isMyServiceRunning(ShakeService.class)||isMyServiceRunning(BackCameraRecorderService.class)) {
+            Toast.makeText(MainActivity.this, "Shield is already on", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            SqDB obj=new SqDB(this);
+            ContactSaving obj1=obj.getContact();
+            if(obj1!=null) {
+                Cursor res = obj.getAllData();
+                if (res.moveToNext()) {
+                    String ph1 = String.valueOf(res.getString(res.getColumnIndex(contact_INFO_TABLE_COLUMN_p1)));
+                    String ph2 = String.valueOf(res.getString(res.getColumnIndex(contact_INFO_TABLE_COLUMN_p2)));
+                    String ph3 = String.valueOf(res.getString(res.getColumnIndex(contact_INFO_TABLE_COLUMN_p3)));
+                    String ph4 = String.valueOf(res.getString(res.getColumnIndex(contact_INFO_TABLE_COLUMN_p4)));
+                    String ph5 = String.valueOf(res.getString(res.getColumnIndex(contact_INFO_TABLE_COLUMN_p5)));
+                    if (ph1 == null) {
+                        Toast.makeText(this, "Please store contacts first", Toast.LENGTH_SHORT).show();
+                        Intent obj23 = new Intent(MainActivity.this, Contacts.class);
+                        startActivity(obj23);
+                    }
+                }
+                startService(new Intent(getBaseContext(), MyService.class));
+                startService(new Intent(getBaseContext(), ShakeService.class));
+                //startService(new Intent(getBaseContext(), Timer.class));
+            }
+            else{
+                speak("Please store contacts first");
+                Toast.makeText(this, "Please store contacts first", Toast.LENGTH_SHORT).show();
+                Intent obj23 = new Intent(MainActivity.this, Contacts.class);
+                startActivity(obj23);
+            }
+        }
     }
     public void stopService(View view) {
         stopService(new Intent(getBaseContext(), MyService.class));
+        stopService(new Intent(getBaseContext(), ShakeService.class));
+        stopService(new Intent(getBaseContext(),Timer.class));
+//       Uri filepath= Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/video.mp4");
+//        Intent serviceIntent = new Intent(getBaseContext(),FirebaseBackgroundService.class);
+//        serviceIntent.putExtra("UserID", filepath.toString());
+//        getBaseContext().startService(serviceIntent);
     }
 
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * Requesting multiple permissions (storage and location) at once
+     * This uses multiple permission model from dexter
+     * On permanent denial opens settings dialog
+     */
+    private void requestStoragePermission() {
+        Dexter.withActivity(this)
+                .withPermissions(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.READ_CONTACTS,
+                        Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.SEND_SMS,
+                        Manifest.permission.CALL_PHONE,
+                        Manifest.permission.INTERNET,
+                        Manifest.permission.SYSTEM_ALERT_WINDOW)
+                .withListener(new MultiplePermissionsListener() {
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        // check if all permissions are granted
+                        if (report.areAllPermissionsGranted()) {
+                            Toast.makeText(getApplicationContext(), "All permissions are granted!", Toast.LENGTH_SHORT).show();
+                        }
+
+                        // check for permanent denial of any permission
+                        if (report.isAnyPermissionPermanentlyDenied()) {
+                            // show alert dialog navigating to Settings
+                            showSettingsDialog();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).
+                withErrorListener(new PermissionRequestErrorListener() {
+                    @Override
+                    public void onError(DexterError error) {
+                        Toast.makeText(getApplicationContext(), "Error occurred! ", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .onSameThread()
+                .check();
+    }
+
+    /**
+     * Requesting camera permission
+     * This uses single permission model from dexter
+     * Once the permission granted, opens the camera
+     * On permanent denial opens settings dialog
+     */
+    private void requestCameraPermission() {
+        Dexter.withActivity(this)
+                .withPermission(Manifest.permission.CAMERA)
+                .withListener(new PermissionListener() {
+                    @Override
+                    public void onPermissionGranted(PermissionGrantedResponse response) {
+                        // permission is granted
+                        //openCamera();
+                    }
+
+                    @Override
+                    public void onPermissionDenied(PermissionDeniedResponse response) {
+                        // check for permanent denial of permission
+                        if (response.isPermanentlyDenied()) {
+                            showSettingsDialog();
+                        }
+                    }
+
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                        token.continuePermissionRequest();
+                    }
+                }).check();
+    }
+
+    /**
+     * Showing Alert Dialog with Settings option
+     * Navigates user to app settings
+     * NOTE: Keep proper title and message depending on your app
+     */
+    private void showSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        builder.setTitle("Need Permissions");
+        builder.setMessage("This app needs permission to use this feature. You can grant them in app settings.");
+        builder.setPositiveButton("GOTO SETTINGS", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                openSettings();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+
+    }
+
+    // navigating user to app settings
+    private void openSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getPackageName(), null);
+        intent.setData(uri);
+        startActivityForResult(intent, 101);
+    }
+
+    public void saveContacts(View view)
+    {
+        Intent obj=new Intent(MainActivity.this,Contacts.class);
+        startActivity(obj);
+    }
 }

@@ -67,7 +67,7 @@ public class Help extends AppCompatActivity {
                     if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Log.e("TTS", "This Language is not supported");
                     }
-                    speak("To start press the microphone button and speak ready or start or begin");
+                    speak(" To start press the microphone button and speak. ready or start or begin");
                 } else {
                     Log.e("TTS", "Initilization Failed!");
                 }
@@ -79,7 +79,7 @@ public class Help extends AppCompatActivity {
     private void loadQuestions(){
         questions = new ArrayList<>();
         questions.clear();
-        questions.add("First you need to set up five contacts that will be alerted via sms when you will be in danger.come back when you get message Contacts stored.");
+        questions.add("First you need to set up five contacts that will be alerted through sms when you will be in danger. You also need to register your device for push notifications. You should also enable gps of your device. That's all I had, thank you ");
         questions.add("Secondly you need to register your device for push notifications");
         questions.add("Thirdly ,you need to know about some features of this app and how to use them.");
         questions.add("That's all I had, thank you ");
@@ -131,12 +131,30 @@ public class Help extends AppCompatActivity {
     private void recognition(String text){
         Log.e("Speech",""+text);
         String[] speech = text.split(" ");
-        if(text.contains("Ready")||text.contains("start")||text.contains("begin")){
+        if(text.contains("Ready")||text.contains("start")||text.contains("begin")||text.contains("continue")||text.contains("proceed")){
             if(f1==false) {
                 speak(questions.get(0));
-                Intent obj = new Intent(this, Contacts.class);
-                startActivity(obj);
+//                Intent obj = new Intent(this, Contacts.class);
+//                startActivity(obj);
                 f1 = true;
+                f2=true;
+                f3=true;
+                f4=true;
+            } if(f2==false) {
+                speak(questions.get(1));
+//                Intent obj = new Intent(this, Contacts.class);
+//                startActivity(obj);
+                f2 = true;
+            } if(f3==false) {
+                speak(questions.get(2));
+//                Intent obj = new Intent(this, Contacts.class);
+//                startActivity(obj);
+                f3 = true;
+            } if(f4==false) {
+                speak(questions.get(3));
+//                Intent obj = new Intent(this, Contacts.class);
+//                startActivity(obj);
+                f4 = true;
             }
         }
         //
