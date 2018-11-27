@@ -55,6 +55,7 @@
         <service android:name=".BackCameraRecorderService" />
         <service android:name=".FirebaseBackgroundService" />
         <service android:name=".Timer" />
+
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -75,7 +76,8 @@
         <activity android:name=".Help" />
         <activity android:name=".DisplaySavedContacts" />
         <activity android:name=".Email" />
-        <activity android:name=".AudioRecording"></activity>
+        <activity android:name=".AudioRecording"/>
+        <activity android:name=".CameraRecorder"/>
     </application>
 
 </manifest>

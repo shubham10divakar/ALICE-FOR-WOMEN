@@ -62,5 +62,12 @@
             android:layout_marginBottom="13dp"
             android:text="Save Contacts"
             android:onClick="saveContacts"/>
+
+        <SurfaceView
+            android:id="@+id/surfaceView1"
+            android:layout_width="15dp"
+            android:layout_height="15dp">
+        </SurfaceView>
+
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

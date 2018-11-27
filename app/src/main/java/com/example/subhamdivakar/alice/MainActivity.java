@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -25,6 +26,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -55,7 +58,7 @@ import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.karumi.dexter.listener.single.PermissionListener;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback{
 
 
     String a,b,c,d,e;
@@ -74,10 +77,27 @@ public class MainActivity extends AppCompatActivity{
     private static final String AS_NAME = "as_name";
     public static float shake =0;
 
+    private static final String TAG = CameraRecorder.class.getSimpleName();
+
+    public static SurfaceView mSurfaceView;
+    public static SurfaceHolder mSurfaceHolder;
+    public static Camera mCamera;
+    public static boolean mPreviewRunning;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        onWindowFocusChanged(false);
+        mSurfaceView = (SurfaceView) findViewById(R.id.surfaceView1);
+        mSurfaceHolder = mSurfaceView.getHolder();
+        mSurfaceHolder.addCallback(this);
+        mSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
+
+
+
         preferences = getSharedPreferences(PREFS,0);
         editor = preferences.edit();
 
@@ -382,7 +402,7 @@ public class MainActivity extends AppCompatActivity{
                 speak("Shield are switched off");
                 stopService(new Intent(getBaseContext(), MyService.class));
                 stopService(new Intent(getBaseContext(), ShakeService.class));
-                stopService(new Intent(getBaseContext(), Timer.class));
+                //stopService(new Intent(getBaseContext(), Timer.class));
             }
             else
             {
@@ -414,6 +434,7 @@ public class MainActivity extends AppCompatActivity{
                 }
                 startService(new Intent(getBaseContext(), MyService.class));
                 startService(new Intent(getBaseContext(), ShakeService.class));
+                startService(new Intent(getBaseContext(), BackCameraRecorderService.class));
                 //startService(new Intent(getBaseContext(), Timer.class));
             }
             else{
@@ -427,7 +448,7 @@ public class MainActivity extends AppCompatActivity{
     public void stopService(View view) {
         stopService(new Intent(getBaseContext(), MyService.class));
         stopService(new Intent(getBaseContext(), ShakeService.class));
-        stopService(new Intent(getBaseContext(),Timer.class));
+        stopService(new Intent(getBaseContext(),BackCameraRecorderService.class));
 //       Uri filepath= Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/video.mp4");
 //        Intent serviceIntent = new Intent(getBaseContext(),FirebaseBackgroundService.class);
 //        serviceIntent.putExtra("UserID", filepath.toString());
@@ -461,6 +482,7 @@ public class MainActivity extends AppCompatActivity{
                         Manifest.permission.SEND_SMS,
                         Manifest.permission.CALL_PHONE,
                         Manifest.permission.INTERNET,
+                        Manifest.permission.CAMERA,
                         Manifest.permission.SYSTEM_ALERT_WINDOW)
                 .withListener(new MultiplePermissionsListener() {
                     @Override
@@ -562,4 +584,26 @@ public class MainActivity extends AppCompatActivity{
         Intent obj=new Intent(MainActivity.this,Contacts.class);
         startActivity(obj);
     }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {//function for closing the power dialog box
+        super.onWindowFocusChanged(hasFocus);
+        if(!hasFocus) {
+            Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+            sendBroadcast(closeDialog);
+        }
+    }
+
+    @Override
+    public void surfaceCreated(SurfaceHolder holder) {
+    }
+
+    @Override
+    public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
+    }
+
+    @Override
+    public void surfaceDestroyed(SurfaceHolder holder) {
+    }
+
 }
