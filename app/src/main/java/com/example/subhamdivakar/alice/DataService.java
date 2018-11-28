@@ -72,7 +72,7 @@ public class DataService extends Service
 
             }
 
-            String sms = "HELP ME,I AM IN DANGER. MY current location is latitude is "+latitude+",longitude is "+longitude;
+            String sms = "HELP ME,I AM IN DANGER.   My location is  http://maps.google.com/?q="+latitude+","+longitude;
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(ph1, null, sms, null, null);
             smsManager.sendTextMessage(ph2, null, sms, null, null);
