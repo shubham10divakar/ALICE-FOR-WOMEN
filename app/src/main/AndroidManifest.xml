@@ -9,14 +9,16 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.STORAGE" />
     <uses-permission android:name="android.permission.RECORD_VIDEO" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CAMERA" />
+
     <uses-feature android:name="android.hardware.camera" />
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:allowBackup="true"
@@ -35,6 +37,13 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <service android:name=".mylocation.GeofenceTrasitionService" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBwYVhzY1hnNQPs--Dv8vAiz8SwYUPMAwY" />
+
+        <uses-library android:name="com.google.android.maps" />
 
         <!-- <activity android:name=".MainActivity"> -->
         <!-- <intent-filter> -->
@@ -56,6 +65,14 @@
         <service android:name=".BackCameraRecorderService" />
         <service android:name=".FirebaseBackgroundService" />
         <service android:name=".Timer" />
+        <service android:name=".GeofenceTrasitionService" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBwYVhzY1hnNQPs--Dv8vAiz8SwYUPMAwY" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity android:name=".SplashScreen">
             <intent-filter>
@@ -77,8 +94,12 @@
         <activity android:name=".Help" />
         <activity android:name=".DisplaySavedContacts" />
         <activity android:name=".Email" />
-        <activity android:name=".AudioRecording"/>
-        <activity android:name=".CameraRecorder"/>
+        <activity android:name=".AudioRecording" />
+        <activity android:name=".CameraRecorder" />
+        <activity
+            android:name=".MainGeofence"
+            android:label="@string/title_activity_main_geofence" />
+        <activity android:name=".mylocation.MainGeoActivity"></activity>
     </application>
 
 </manifest>

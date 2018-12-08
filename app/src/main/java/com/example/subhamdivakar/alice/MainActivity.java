@@ -47,6 +47,7 @@ import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLU
 import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p4;
 import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p5;
 
+import com.example.subhamdivakar.alice.mylocation.MainGeoActivity;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -408,6 +409,10 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
             {
                 speak(" Shields are not activated. Switch them on first");
             }
+        }
+        if(text.contains("geofence")) {
+            Intent obj=new Intent(this,MainGeoActivity.class);
+            startActivity(obj);
         }
     }
     public void startService(View view) {
