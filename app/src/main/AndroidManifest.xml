@@ -38,6 +38,11 @@
             </intent-filter>
         </service>
         <service android:name=".mylocation.GeofenceTrasitionService" />
+        <service android:name=".MessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -74,7 +79,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".SplashScreen">
+        <activity android:name=".WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -86,6 +91,7 @@
             android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Contacts" />
+        <activity android:name=".SplashScreen"/>
         <activity android:name=".SMSsending" />
         <activity android:name=".DisplayToken" />
         <activity android:name=".ActivitySendPushNotification" />
@@ -99,7 +105,8 @@
         <activity
             android:name=".MainGeofence"
             android:label="@string/title_activity_main_geofence" />
-        <activity android:name=".mylocation.MainGeoActivity"></activity>
+        <activity android:name=".mylocation.MainGeoActivity" />
+        <activity android:name=".notification.PushNotificationActivity" />
     </application>
 
 </manifest>

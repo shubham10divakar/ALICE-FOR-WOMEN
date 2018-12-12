@@ -1,5 +1,7 @@
 package com.example.subhamdivakar.alice;
 
+import android.app.KeyguardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
@@ -18,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.example.subhamdivakar.alice.Bean.ContactSaving;
@@ -26,6 +29,8 @@ import com.example.subhamdivakar.alice.UTILS.SqDB;
 public class Navigation extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private MyReceiver myReceiver;
+    private static final int CREDENTIALS_RESULT = 4342; //just make sure it's unique within your activity.
+    public boolean verify=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +38,15 @@ public class Navigation extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
 
+
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         filter.addAction(Intent.ACTION_SCREEN_OFF);
         filter.addAction(Intent.ACTION_USER_PRESENT);
         myReceiver = new MyReceiver();
         registerReceiver(myReceiver, filter);
+
+        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);//prevent phone from being locked
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -61,6 +70,54 @@ public class Navigation extends AppCompatActivity
 //        fm.beginTransaction().replace(R.id.container,new BlankFragmentUserDetails()).commit();
     }
 
+//    @Override
+//    public void onWindowFocusChanged(boolean hasFocus) {
+//        super.onWindowFocusChanged(hasFocus);
+//        if(!hasFocus) {
+//            // Close every kind of system dialog
+//            Intent closeDialog = new Intent(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+//            sendBroadcast(closeDialog);
+//            Toast.makeText(Navigation.this, "Your LongPress Power Button", Toast.LENGTH_SHORT).show();
+//            checkCredentials();
+//        }
+//    }
+
+
+//    void checkCredentials() {
+//        KeyguardManager keyguardManager = (KeyguardManager) this.getSystemService(Context.KEYGUARD_SERVICE);
+//
+//        Intent credentialsIntent = keyguardManager.createConfirmDeviceCredentialIntent("Password required", "please enter your pattern to receive your token");
+//        if (credentialsIntent != null) {
+//            startActivityForResult(credentialsIntent, CREDENTIALS_RESULT);
+//        } else {
+//            //no password needed
+//            Toast.makeText(this, "Please create a password for device", Toast.LENGTH_SHORT).show();
+//        }
+//
+//
+//    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if(resultCode==RESULT_OK && requestCode==CREDENTIALS_RESULT)
+//        {
+//            Toast.makeText(this, "Success: Verified user's identity", Toast.LENGTH_SHORT).show();
+//            verify=true;
+//
+//        }
+//        else if(resultCode == RESULT_CANCELED && requestCode == CREDENTIALS_RESULT)
+//        {
+////            finish();
+//            checkCredentials();
+//        }
+//        else
+//        {
+//            Toast.makeText(this, "Failure: Unable to verify user's identity", Toast.LENGTH_SHORT).show();
+//
+//        }
+//    }
+
+
     @Override
     protected void onDestroy()
     {
@@ -80,6 +137,14 @@ public class Navigation extends AppCompatActivity
         } else {
             super.onBackPressed();
         }
+//        if(verify)
+//        {
+//            finish();
+//        }
+//        else
+//        {
+//            checkCredentials();
+//        }
     }
 
     @Override

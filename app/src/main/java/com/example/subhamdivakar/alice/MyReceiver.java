@@ -10,6 +10,7 @@ import android.os.CountDownTimer;
 import android.os.Vibrator;
 import android.telephony.SmsManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
 import com.example.subhamdivakar.alice.Bean.ContactSaving;
@@ -140,6 +141,7 @@ public class MyReceiver extends BroadcastReceiver {
 
             }
     }
+    
 
     private long cal_diff(long seconds_screenon2, long seconds_screenoff2) {
         long diffrence;

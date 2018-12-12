@@ -35,11 +35,13 @@ import android.widget.Toast;
 import com.example.subhamdivakar.alice.Bean.ContactSaving;
 import com.example.subhamdivakar.alice.UTILS.SqDB;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
 
 import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p1;
 import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p2;
@@ -48,6 +50,7 @@ import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLU
 import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p5;
 
 import com.example.subhamdivakar.alice.mylocation.MainGeoActivity;
+import com.example.subhamdivakar.alice.notification.PushNotificationActivity;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -77,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private static final String AGE = "age";
     private static final String AS_NAME = "as_name";
     public static float shake =0;
+    String greet;
 
     private static final String TAG = CameraRecorder.class.getSimpleName();
 
@@ -84,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     public static SurfaceHolder mSurfaceHolder;
     public static Camera mCamera;
     public static boolean mPreviewRunning;
+    Random rand = new Random();
 
 
     @Override
@@ -134,6 +139,36 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
         loadQuestions();
 
+        DateFormat dateFormat = new SimpleDateFormat("HH");
+        DateFormat dateFormat1 = new SimpleDateFormat("mm");
+
+        int time1=Integer.parseInt(dateFormat.format(new Date()).toString());
+
+        //SimpleDateFormat f2 = new SimpleDateFormat("a");
+
+        int time2=Integer.parseInt(dateFormat1.format(new Date()).toString());
+
+
+        //Toast.makeText(this, time1, Toast.LENGTH_SHORT).show();
+        if (time1>=4 && time1<=11)
+        {
+            greet="Good Morning.";
+        }
+        else if(time1>=12 && time1<=15)
+        {
+            greet="Good Afternoon.";
+        }
+        else if(time1>=16 && time1<=20)
+        {
+            greet="Good Evening.";
+        }
+        else if(time1>=20)
+        {
+            greet="Its night time. How can i help you";
+        }
+
+        //Toast.makeText(this, time, Toast.LENGTH_SHORT).show();
+
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
@@ -142,7 +177,14 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                     if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Log.e("TTS", "This Language is not supported");
                     }
-                    speak("Hello.I am ALICE.");
+                    if (greet.equals("Its night time. How can i help you"))
+                    {
+                        speak("I am ALICE."+greet);
+                    }
+                    else
+                    {
+                        speak(greet+".I am ALICE.");
+                    }
                 } else {
                     Log.e("TTS", "Initilization Failed!");
                 }
@@ -246,20 +288,20 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
             speak("Setting alarm to ring at " + hour + ":" + minutes);
         }
 
-        if(text.contains("thank you")){
-            //speak("Thank you too " + preferences.getString(NAME, null));
-//            try {
-//                Intent i = new Intent(Intent.ACTION_SEND);
-//                i.setType("text/plain");
-//                i.putExtra(Intent.EXTRA_SUBJECT, "BUS APP");
-//                String sAux = "\nLet me recommend you this application\n\n";
-//                sAux = sAux + "https://play.google.com/store/apps/details?id=Orion.Soft \n\n";
-//                i.putExtra(Intent.EXTRA_TEXT, sAux);
-//                startActivity(Intent.createChooser(i, "Choose one"));
-//            } catch(Exception e) {
-//                //e.toString();
-//            }
-            speak("Thank you too " + preferences.getString(NAME, null));
+        if(text.contains("thank you"))
+        {
+            String reply[]={"Thank you too ","you’re welcome","no problem","not at all","don’t mention it ","it’s no bother ","(it’s) my pleasure",
+                    "that’s all right ","it’s all right ","it’s nothing of it ","think nothing of it ","please don't bother","that's so nice of you"};
+            int b=reply.length;
+            int n=rand.nextInt(b) + 1;
+            if(preferences.getString(NAME, null)==null)
+            {
+                speak( reply[n]);
+            }
+            else
+            {
+                speak( reply[n]+ preferences.getString(NAME, null));
+            }
         }
 
         if(text.contains("how old am I")){
@@ -320,7 +362,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
             startActivity(intent);
             speak("Sir your facebook account is opened");
         }
-        if(text.contains("whatsapp")||text.contains("app"))
+        if(text.contains("open whatsapp")||text.contains("app"))
         {
             Intent i = new Intent(Intent.ACTION_MAIN);
             PackageManager managerclock = getPackageManager();
@@ -374,15 +416,18 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 //            Intent obj=new Intent(this,GPSTracking.class);
 //            startActivity(obj);
 //        }
-        if(text.contains("help"))
+        if(text.contains("introduce")||text.contains("introduce yourself")||
+                text.contains("tell me about yourself")||text.contains("tell me something about yourself")||text.contains("what do you do")||
+                text.contains("tell about yourself")||
+                text.contains("tell about you")||text.contains("help"))
         {
             speak("Hi,I am alice.I will guide you to set up some basic things and will tell you some features of this app.");
             Intent obj=new Intent(this,SplashScreen3.class);
             startActivity(obj);
         }
-        if(text.contains("introduce")||text.contains("tell about yourself"))
+        if(text.contains("who are you")||text.contains("what are you"))
         {
-            speak("Good morning everyone. I am ALICE and i am a chatbot developed for the safety of women.   I will alert the contacts stored by you to alert them   and the police that you are in danger. I will also alert the users of the application within a radius of 5 kilometres."
+            speak(greet+" I am ALICE and i am a chatbot application developed on android for the safety of women.   I will alert the contacts stored by you to alert them   and the police that you are in danger. I will also alert the users of the application within a radius of 5 kilometres."
             );
         }
         if(text.contains("activate")||text.contains("shield on"))
@@ -396,6 +441,15 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 startService(new Intent(getBaseContext(), MyService.class));
                 startService(new Intent(getBaseContext(), ShakeService.class));
             }
+        }
+        if(text.contains("notification"))
+        {
+//            Intent obj=new Intent(this,DisplayToken.class);
+//            startActivity(obj);
+
+            Intent obj=new Intent(this,PushNotificationActivity.class);
+            startActivity(obj);
+
         }
         if(text.contains("stop"))
         {

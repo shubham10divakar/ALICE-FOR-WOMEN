@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "1057593397407-umj3tj5o7ikug26pv4b038cno5hm9k7j.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.subhamdivakar.alice",
-            "certificate_hash": "8d6b9e3864bac7781a10893e83b4b0a4445e9d16"
-          }
-        },
-        {
           "client_id": "1057593397407-4noa5k1u23nk3dghj50ihfv5rk126btq.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
@@ -31,8 +23,12 @@
           }
         },
         {
-          "client_id": "1057593397407-agel0pkqjnoqoae0no5e31jnbgj32pe4.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "1057593397407-umj3tj5o7ikug26pv4b038cno5hm9k7j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.subhamdivakar.alice",
+            "certificate_hash": "8d6b9e3864bac7781a10893e83b4b0a4445e9d16"
+          }
         },
         {
           "client_id": "1057593397407-agel0pkqjnoqoae0no5e31jnbgj32pe4.apps.googleusercontent.com",

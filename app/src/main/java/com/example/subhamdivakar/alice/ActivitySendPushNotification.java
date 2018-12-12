@@ -104,7 +104,6 @@ public class ActivitySendPushNotification extends AppCompatActivity implements R
 
                     }
                 }) {
-
         };
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
@@ -112,13 +111,13 @@ public class ActivitySendPushNotification extends AppCompatActivity implements R
     //this method will send the push
     //from here we will call sendMultiple() or sendSingle() push method
     //depending on the selection
-    private void sendPush(){
+    private void sendPush()
+    {
         if(isSendAllChecked){
             sendMultiplePush();
         }else{
             sendSinglePush();
         }
-
     }
 
     private void sendMultiplePush() {
@@ -200,8 +199,10 @@ public class ActivitySendPushNotification extends AppCompatActivity implements R
         MyVolley.getInstance(this).addToRequestQueue(stringRequest);
     }
     @Override
-    public void onCheckedChanged(RadioGroup radioGroup, int i) {
-        switch (radioGroup.getCheckedRadioButtonId()) {
+    public void onCheckedChanged(RadioGroup radioGroup, int i)
+    {
+        switch (radioGroup.getCheckedRadioButtonId())
+        {
             case R.id.radioButtonSendAll:
                 isSendAllChecked = true;
                 spinner.setEnabled(false);
