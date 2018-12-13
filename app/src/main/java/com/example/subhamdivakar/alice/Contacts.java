@@ -29,6 +29,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.subhamdivakar.alice.Bean.ContactSaving;
 import com.example.subhamdivakar.alice.UTILS.SqDB;
 
@@ -61,7 +63,11 @@ public class Contacts extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_contacts);
+        setContentView(R.layout.activity_contact);
+        ImageView img;
+        img=findViewById(R.id.main);
+        Glide.with(Contacts.this).load("file:///android_asset/contact.gif").asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).crossFade().into(img);
+
         SqDB database = new SqDB(this);
         ContactSaving obj = database.getContact();
         number1 = (TextView) findViewById(R.id.phone_number_edit_text);

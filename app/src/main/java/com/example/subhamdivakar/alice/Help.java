@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.provider.AlarmClock;
 import android.speech.RecognizerIntent;
 import android.speech.tts.TextToSpeech;
@@ -16,8 +17,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -31,6 +37,7 @@ public class Help extends AppCompatActivity {
     int a1,b1,c1,d1,e1;
     int ctr=0;
     int open=0;
+    int SPLASH_TIME_OUT = 4000;
     private TextToSpeech tts;
     private ArrayList<String> questions;
     private String name, surname, age, asName;
@@ -50,14 +57,51 @@ public class Help extends AppCompatActivity {
         preferences = getSharedPreferences(PREFS,0);
         editor = preferences.edit();
 
-        findViewById(R.id.microphoneButton).setOnClickListener(new View.OnClickListener() {
+        ImageView img=findViewById(R.id.main123);
+        Glide.with(Help.this).load("file:///android_asset/help.gif").asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).crossFade().into(img);
+
+        EditText txt1,txt2,txt3,txt4;
+        txt1=findViewById(R.id.phone_number_edit_text);
+        txt1.setEnabled(false);
+
+        txt2=findViewById(R.id.editText);
+        txt2.setEnabled(false);
+
+        txt3=findViewById(R.id.editText2);
+        txt3.setEnabled(false);
+
+        txt4=findViewById(R.id.editText3);
+        txt4.setEnabled(false);
+
+        findViewById(R.id.add_contact_image_view1).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                listen();
+                speak("You need to save five contacts on which message will be sent.");
             }
         });
-        loadQuestions();
+        findViewById(R.id.add_contact_image_view2).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                speak("You need to enable gps for sending location.");
+            }
+        });
+        findViewById(R.id.add_contact_image_view3).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                speak("You need to give autostart permissions");
+            }
+        });
+        findViewById(R.id.add_contact_image_view4).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                speak("Enable Camera permissions.");
+            }
+        });
+        //loadQuestions();
 
         tts = new TextToSpeech(this, new TextToSpeech.OnInitListener() {
             @Override
@@ -67,6 +111,19 @@ public class Help extends AppCompatActivity {
                     if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                         Log.e("TTS", "This Language is not supported");
                     }
+                    new Handler().postDelayed(new Runnable() {
+
+                        /*
+                         * Showing splash screen with a timer. This will be useful when you
+                         * want to show case your app logo / company
+                         */
+                        @Override
+                        public void run() {
+                            // This method will be executed once the timer is over
+                            // Start your app main activity
+
+                        }
+                    }, SPLASH_TIME_OUT);
                     speak(" To start press the microphone button and speak. ready or start or begin");
                 } else {
                     Log.e("TTS", "Initilization Failed!");

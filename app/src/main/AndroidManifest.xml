@@ -68,6 +68,7 @@
         <service android:name=".DataService" />
         <service android:name=".ShakeService" />
         <service android:name=".BackCameraRecorderService" />
+        <service android:name=".BackCameraRecorderService2" />
         <service android:name=".FirebaseBackgroundService" />
         <service android:name=".Timer" />
         <service android:name=".GeofenceTrasitionService" />
@@ -91,7 +92,7 @@
             android:label="@string/title_activity_navigation"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Contacts" />
-        <activity android:name=".SplashScreen"/>
+        <activity android:name=".SplashScreen" />
         <activity android:name=".SMSsending" />
         <activity android:name=".DisplayToken" />
         <activity android:name=".ActivitySendPushNotification" />
@@ -107,6 +108,7 @@
             android:label="@string/title_activity_main_geofence" />
         <activity android:name=".mylocation.MainGeoActivity" />
         <activity android:name=".notification.PushNotificationActivity" />
+        <activity android:name=".SpyCamera"></activity>
     </application>
 
 </manifest>

@@ -8,7 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 public class pedometer extends AppCompatActivity implements SensorEventListener, StepListener {
     private TextView TvSteps;
@@ -24,7 +28,8 @@ public class pedometer extends AppCompatActivity implements SensorEventListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pedometer);
 
-
+        ImageView img=findViewById(R.id.main);
+        Glide.with(pedometer.this).load("file:///android_asset/walking.gif").asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).crossFade().into(img);
         // Get an instance of the SensorManager
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         accel = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);

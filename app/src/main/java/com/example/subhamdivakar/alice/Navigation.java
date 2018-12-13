@@ -21,8 +21,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.subhamdivakar.alice.Bean.ContactSaving;
 import com.example.subhamdivakar.alice.UTILS.SqDB;
 
@@ -37,6 +40,10 @@ public class Navigation extends AppCompatActivity
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
+
+        ImageView img;
+        img=findViewById(R.id.women);
+        Glide.with(Navigation.this).load("file:///android_asset/girl2.gif").asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).crossFade().into(img);
 
 
         IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
@@ -181,8 +188,8 @@ public class Navigation extends AppCompatActivity
 
         if (id == R.id.motion) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
+            Intent obj=new Intent(this,SpyCamera.class);
+            startActivity(obj);
         } else if (id == R.id.nav_share) {
             try {
                 Intent i = new Intent(Intent.ACTION_SEND);

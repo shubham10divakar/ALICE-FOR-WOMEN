@@ -30,8 +30,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.subhamdivakar.alice.Bean.ContactSaving;
 import com.example.subhamdivakar.alice.UTILS.SqDB;
 
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     private static final String AGE = "age";
     private static final String AS_NAME = "as_name";
     public static float shake =0;
-    String greet;
+    String greet="Hey";
 
     private static final String TAG = CameraRecorder.class.getSimpleName();
 
@@ -95,6 +98,11 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ImageView img;
+        img=findViewById(R.id.view123);
+        Glide.with(MainActivity.this).load("file:///android_asset/girl.gif").asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).crossFade().into(img);
+
 
         onWindowFocusChanged(false);
         mSurfaceView = (SurfaceView) findViewById(R.id.surfaceView1);
@@ -179,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                     }
                     if (greet.equals("Its night time. How can i help you"))
                     {
-                        speak("I am ALICE."+greet);
+                        speak("Hello.I am ALICE. "+greet);
                     }
                     else
                     {
@@ -273,6 +281,9 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
             if(strDate[1].contains("00"))
                 strDate[1] = "o'clock";
             speak("The time is " + sdfDate.format(now));
+
+        }
+        if(text.contains("good morning ")||text.contains("good morning alice")) {
 
         }
 
@@ -409,6 +420,12 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         {
 
             Intent obj=new Intent(this,pedometer.class);
+            startActivity(obj);
+        }
+        if(text.contains("features"))
+        {
+
+            Intent obj=new Intent(this,Navigation.class);
             startActivity(obj);
         }
 //        if(text.contains("help"))
