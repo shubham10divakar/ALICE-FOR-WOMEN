@@ -108,7 +108,8 @@
             android:label="@string/title_activity_main_geofence" />
         <activity android:name=".mylocation.MainGeoActivity" />
         <activity android:name=".notification.PushNotificationActivity" />
-        <activity android:name=".SpyCamera"></activity>
+        <activity android:name=".SpyCamera" />
+        <activity android:name=".AboutDeveloper"></activity>
     </application>
 
 </manifest>

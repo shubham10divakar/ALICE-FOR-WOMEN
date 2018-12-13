@@ -270,6 +270,11 @@ public class Navigation extends AppCompatActivity
             Intent obj=new Intent(this,AudioRecording.class);
             startActivity(obj);
         }
+        else if(id==R.id.nav_about){
+            //SqDB database = new SqDB(this);
+            Intent obj=new Intent(this,AboutDeveloper.class);
+            startActivity(obj);
+        }
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

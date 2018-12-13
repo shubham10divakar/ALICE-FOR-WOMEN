@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fadeScrollbars="false"
+    android:scrollbarFadeDuration="0"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+<LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/colorPrimary"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/reg12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="App Developed By"
+                    android:textIsSelectable="true"
+                    android:selectAllOnFocus="true"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="Subham Divakar"
+                    android:textColor="@android:color/white" />
+
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/reg21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="I am from"
+                    android:textIsSelectable="true"
+                    android:selectAllOnFocus="true"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="C.V.Raman College of Engineering"
+                    android:textColor="@android:color/white" />
+
+        </android.support.design.widget.TextInputLayout>
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/reg32"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="My Email-id"
+                    android:textIsSelectable="true"
+                    android:selectAllOnFocus="true"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:text="shubham.divakar@gmail.com"
+                    android:textColor="@android:color/white" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/reg42"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="My LinkedIn Id"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="3"
+                    android:selectAllOnFocus="true"
+                    android:textIsSelectable="true"
+                    android:singleLine="true"
+                    android:text="www.linkedin.com/in/subham-divakar-a7420a12a"
+                    android:textColor="@android:color/white" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/reg52"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="My Github id"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:selectAllOnFocus="true"
+                    android:textIsSelectable="true"
+                    android:singleLine="true"
+                    android:text="https://github.com/shubham10divakar"
+                    android:textColor="@android:color/white" />
+
+        </android.support.design.widget.TextInputLayout>
+        <!--<android.support.design.widget.TextInputLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/reg6"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:hint="My Github id"-->
+                    <!--android:inputType="textEmailAddress"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:singleLine="true"-->
+                    <!--android:text="https://github.com/shubham10divakar"-->
+                    <!--android:textColor="@android:color/white" />-->
+
+        <!--</android.support.design.widget.TextInputLayout>-->
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:textSize="20dp"-->
+            <!--android:textStyle="bold"-->
+            <!--android:text="@string/app_info"-->
+            <!--/>-->
+</LinearLayout>
+</android.support.v4.widget.NestedScrollView>

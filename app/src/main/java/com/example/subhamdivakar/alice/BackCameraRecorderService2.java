@@ -106,9 +106,9 @@ public class BackCameraRecorderService2 extends Service {
             mMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
             mMediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
             mMediaRecorder.setVideoEncoder(MediaRecorder.VideoEncoder.H264);
-            mMediaRecorder.setOutputFile(Environment.getExternalStorageDirectory().getPath() + "/video1.mp4");
+            mMediaRecorder.setOutputFile(Environment.getExternalStorageDirectory().getPath() + "/video.mp4");
             mMediaRecorder.setPreviewDisplay(mSurfaceHolder.getSurface());
-            filepath=Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/video1.mp4");
+            filepath=Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/video.mp4");
             mMediaRecorder.prepare();
             mMediaRecorder.start();
 //"/storage/emulated/0/video.mp4"

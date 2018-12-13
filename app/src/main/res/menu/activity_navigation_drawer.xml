@@ -12,36 +12,36 @@
                     android:title="SpyCamera" />
                 <item
                     android:id="@+id/gps"
-                    android:icon="@drawable/ic_menu_slideshow"
+                    android:icon="@drawable/ic_location_on_black_24dp"
                     android:title="GPS Tracking" />
                 <item
                     android:id="@+id/sms"
-                    android:icon="@drawable/ic_menu_manage"
+                    android:icon="@drawable/ic_textsms_black_24dp"
                     android:title="SMS alert" />
                 <item
                     android:id="@+id/police"
-                    android:icon="@drawable/ic_menu_manage"
+                    android:icon="@drawable/ic_location_searching_black_24dp"
                     android:title="Contact Police" />
                 <item
                     android:id="@+id/theft"
-                    android:icon="@drawable/ic_menu_manage"
+                    android:icon="@drawable/ic_money_off_black_24dp"
                     android:title="Anti-Theft"/>
                 <item
                     android:id="@+id/immergency"
-                    android:icon="@drawable/ic_menu_manage"
+                    android:icon="@drawable/ic_add_circle_black_24dp"
                     android:title="Immergency" />
                 <item
                     android:id="@+id/note"
-                    android:icon="@drawable/ic_menu_manage"
+                    android:icon="@drawable/ic_people_black_24dp"
                     android:title="Alert everyone"
                     />
                 <item
                     android:id="@+id/email"
-                    android:icon="@drawable/ic_menu_manage"
+                    android:icon="@drawable/ic_email_black_24dp"
                     android:title="Send Email"/>
                 <item
                     android:id="@+id/record"
-                    android:icon="@drawable/ic_menu_manage"
+                    android:icon="@drawable/ic_record_voice_over_black_24dp"
                     android:title="Recorder"/>
             </menu>
         </item>
@@ -54,11 +54,11 @@
             android:title="Select Contacts" />
             <item
                 android:id="@+id/erase"
-                android:icon="@drawable/ic_menu_manage"
+                android:icon="@drawable/ic_contact_phone_black_24dp"
                 android:title="Add new Contacts" />
                 <item
                     android:id="@+id/display"
-                    android:icon="@drawable/ic_menu_manage"
+                    android:icon="@drawable/ic_contacts_black_24dp"
                     android:title="Display Saved Contacts"/>
             </menu>
 
@@ -68,8 +68,8 @@
         <menu>
             <item
                 android:id="@+id/health"
-                android:icon="@drawable/ic_menu_manage"
-                android:title="PEDOMETER" />
+                android:icon="@drawable/ic_domain_black_24dp"
+                android:title="Pedometer" />
             </menu>
         </item>
 
@@ -89,6 +89,11 @@
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Send" />
+            <item
+                android:id="@+id/nav_about"
+                android:icon="@drawable/ic_developer_mode_black_24dp"
+                android:title="about"
+                />
         </menu>
     </item>
 
