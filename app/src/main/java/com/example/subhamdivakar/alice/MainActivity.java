@@ -54,6 +54,7 @@ import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLU
 
 import com.example.subhamdivakar.alice.mylocation.MainGeoActivity;
 import com.example.subhamdivakar.alice.notification.PushNotificationActivity;
+import com.example.subhamdivakar.alice.pushnotification.MyFirebaseInstanceIdService;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -64,7 +65,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.karumi.dexter.listener.single.PermissionListener;
-
+import com.pusher.pushnotifications.PushNotifications;
 public class MainActivity extends AppCompatActivity implements SurfaceHolder.Callback{
 
 
@@ -102,6 +103,11 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         ImageView img;
         img=findViewById(R.id.view123);
         Glide.with(MainActivity.this).load("file:///android_asset/girl.gif").asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).crossFade().into(img);
+
+//        PushNotifications.start(getApplicationContext(), "3babffc0-71b6-4336-b227-15a84db15ca0");
+//        PushNotifications.subscribe("hello");
+
+        startService(new Intent(getBaseContext(), MyFirebaseInstanceIdService.class));
 
 
         onWindowFocusChanged(false);
@@ -444,7 +450,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
         }
         if(text.contains("who are you")||text.contains("what are you"))
         {
-            speak(greet+" I am ALICE and i am a chatbot application developed on android for the safety of women.   I will alert the contacts stored by you to alert them   and the police that you are in danger. I will also alert the users of the application within a radius of 5 kilometres."
+            speak(" I am ALICE and i am a chatbot application developed on android for the safety of women.   I will alert the contacts stored by you to alert them   and the police that you are in danger. I will also alert the users of the application within a radius of 5 kilometres."
             );
         }
         if(text.contains("activate")||text.contains("shield on"))
@@ -481,7 +487,7 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
                 speak(" Shields are not activated. Switch them on first");
             }
         }
-        if(text.contains("geofence")) {
+        if(text.contains("geofence")||text.contains("geo fence")) {
             Intent obj=new Intent(this,MainGeoActivity.class);
             startActivity(obj);
         }
@@ -657,8 +663,11 @@ public class MainActivity extends AppCompatActivity implements SurfaceHolder.Cal
 
     public void saveContacts(View view)
     {
+//        PushNotifications.start(getApplicationContext(), "3babffc0-71b6-4336-b227-15a84db15ca0");
+//        PushNotifications.subscribe("hello");
         Intent obj=new Intent(MainActivity.this,Contacts.class);
         startActivity(obj);
+
     }
 
     @Override

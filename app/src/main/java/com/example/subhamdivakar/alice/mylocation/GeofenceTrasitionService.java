@@ -7,18 +7,30 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.support.v4.app.NotificationCompat;
+import android.telephony.SmsManager;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.example.subhamdivakar.alice.Bean.ContactSaving;
+import com.example.subhamdivakar.alice.DataService;
+import com.example.subhamdivakar.alice.GPSTracker;
 import com.example.subhamdivakar.alice.R;
+import com.example.subhamdivakar.alice.UTILS.SqDB;
 import com.google.android.gms.location.Geofence;
 import com.google.android.gms.location.GeofenceStatusCodes;
 import com.google.android.gms.location.GeofencingEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p1;
+import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p2;
+import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p3;
+import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p4;
+import static com.example.subhamdivakar.alice.UTILS.SqDB.contact_INFO_TABLE_COLUMN_p5;
 
 
 public class GeofenceTrasitionService extends IntentService {
@@ -91,6 +103,35 @@ public class GeofenceTrasitionService extends IntentService {
         notificatioMng.notify(
                 GEOFENCE_NOTIFICATION_ID,
                 createNotification(msg, notificationPendingIntent));
+        SqDB obj=new SqDB(this);
+        ContactSaving obj1=new ContactSaving();
+        Cursor res = obj.getAllData();
+        if (res.moveToNext()) {
+            String ph1 = String.valueOf( res.getString(res.getColumnIndex(contact_INFO_TABLE_COLUMN_p1)));
+            String ph2 = String.valueOf(res.getString(res.getColumnIndex(contact_INFO_TABLE_COLUMN_p2)));
+            String ph3 = String.valueOf(res.getString(res.getColumnIndex(contact_INFO_TABLE_COLUMN_p3)));
+            String ph4 = String.valueOf(res.getString(res.getColumnIndex(contact_INFO_TABLE_COLUMN_p4)));
+            String ph5 = String.valueOf(res.getString(res.getColumnIndex(contact_INFO_TABLE_COLUMN_p5)));
+
+            //gps = new GPSTracker(DataService.this);
+
+            // check if GPS enabled
+//            if(gps.canGetLocation())
+//            {
+//
+//                latitude = gps.getLatitude();
+//                longitude = gps.getLongitude();
+//
+//            }
+
+            String sms = "Geofence trigerred";
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(ph1, null, sms, null, null);
+            smsManager.sendTextMessage(ph2, null, sms, null, null);
+            smsManager.sendTextMessage(ph3, null, sms, null, null);
+            smsManager.sendTextMessage(ph4, null, sms, null, null);
+            smsManager.sendTextMessage(ph5, null, sms, null, null);
+        }
 
     }
 

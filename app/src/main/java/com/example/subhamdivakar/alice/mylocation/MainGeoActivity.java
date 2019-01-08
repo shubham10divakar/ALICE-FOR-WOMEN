@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,6 +71,14 @@ public class MainGeoActivity extends AppCompatActivity
         intent.putExtra( NOTIFICATION_MSG, msg );
         return intent;
     }
+    public void startG(View view)
+    {
+        startGeofence();
+    }
+    public void stopG(View view)
+    {
+        clearGeofence();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +86,9 @@ public class MainGeoActivity extends AppCompatActivity
         setContentView(R.layout.activity_main_geo);
         textLat = (TextView) findViewById(R.id.lat);
         textLong = (TextView) findViewById(R.id.lon);
+
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate( R.menu.main_menu, menu);
 
         // initialize GoogleMaps
         initGMaps();
